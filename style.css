@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Cabin", serif;
+}
+
+img{
+   display: block;
+   width: 100%;
+   height: 100%;
+   object-fit: cover; 
+}
+
+body {
+    position: relative;
+    background: rgb(3, 15, 31);
+    background-image: radial-gradient(
+        circle at top center,
+        white 0%,
+        #636363 76%
+    );
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    aspect-ratio: 3/4;
+    border-radius: 20px;
+    transition: all 0.8s;
+    pointer-events: none;
+    user-select: none;
+}
+
+.slide.active {
+    box-shadow: 10px 10px 50px 0 rgba(60, 60, 66, 0.6);
+}
+
+.slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(85,86,91, 0.3);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(3px);
+    border: 1px solid rgb(255, 255, 255, 0.3);
+    border-radius: inherit;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slide.slide.active::after {
+    opacity: 1;
+}
+
+.slide img{
+    border-radius: inherit;
+    border: 4px solid rgb(255, 255, 255, 0.3);
+}
+
+.slide p {
+    position: absolute;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transform: translateY(0);
+    z-index: 2;
+    opacity: 0;
+}
+
+.slide.active p {
+    animation: pop-out 0.8 ease-in-out forwards;
+}
+
+@keyframes pop-out {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+}
+
+.control-btn {
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    /* # szélesség */
+    aspect-ratio: 1/1;
+    font-size: 2.25rem;
+    /* # a nyíl színe */
+    color: #00abf0;
+    /* # szín */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background-color: transparent;
+    background-image: radial-gradient(
+        50% 115% at 50% -5%,
+        rgba(255, 255, 255, 0.11) 0%,
+        transparent 100%
+    );
+    box-shadow: inset 0 0 10px 0 rgba(255, 255, 255, 0.15),
+    inset 0 5px 10px 0 rgba(255, 255, 255, 0.1),
+    inset 0 2px 5px 0 rgba(255, 255, 255, 0.4),
+    inset 0 3px 20px 0 rgba(0, 0, 0, 0.25);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 3;
+    animation: change-color 2s ease-in infinite, change-size 1.5s linear infinite;
+    will-change: transform;
+}
+
+@keyframes change-color {
+    0%, 100% {
+        color: #00abf0;
+    }
+    50% {
+        color: lightgray;
+    }
+}
+
+@keyframes change-size {
+    0%, 
+    100% {
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+
+.control-btn:hover {
+    background-color: rgb(255,255,255,0.05);
+    animation: none;
+}
+
+.control-btn.prev {
+    left: 25%;
+    transform: rotate(0deg) translateY(-50%) scale(1);
+}
+
+.control-btn.next {
+    right: 25%;
+    transform: rotate(0deg) translateY(-50%) scale(1);
+}
+
+.control-btn.prev:not([disabled]):hover {
+    transform: rotate(-15deg) translateY(-50%) scale(1.2);
+}
+
+.control-btn.next:not([disabled]):hover {
+    transform: rotate(15deg) translateY(-50%) scale(1.2);
+}
+
+.control-btn.prev:is([disabled]),
+.control-btn.next:is([disabled]) {
+    animation: none;
+}
+
+@media (max-width: 980px) {
+    .slide p {
+        font-size: 1.5rem;
+    }
+
+    .control-btn.prev {
+        left: 15%;
+    }
+
+    .control-btn.next {
+        right: 15%;
+    }
+}
+
+@media (max-width: 700px) {
+    .slide {
+        width: 260px;
+    }
+
+    .slide p {
+        font-size: 1.25rem;
+    }
+
+    .control-btn {
+        width: 40px;
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .slide {
+        width: 220px;
+    }
+
+    .slide p {
+        font-size: 1.1rem;
+    }
+
+    .control-btn {
+        font-size: 1.5rem;
+    }
+
+    .control-btn.prev {
+        left: 5%;
+    }
+
+    .control-btn.next {
+        right: 5%;
+    }
+}
